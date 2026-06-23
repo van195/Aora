@@ -1,10 +1,11 @@
-import { View, Text, ScrollView , Image} from 'react-native'
+import { View, Text, ScrollView , Image, Alert} from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import image from '../constants/expoer_manager'
 import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
+import {createAccount} from '../../lib/appwrite'
 const SignUp = () => {
   const [form , setForm] = useState({
     userName:'',
@@ -12,8 +13,29 @@ const SignUp = () => {
     password:''
   })
   const [isSubmitting , setIsSubmitting] = useState(false);
-  const submit = ()=>{
-
+  const [fillingError , setFillingError] = useState(null);
+  const submit = async()=>{
+    const lengthPassword = form.password;
+    if(!form.userName || !form.email || !form.password) {
+      setFillingError('please fill all fields');
+      return;
+    }
+    if(lengthPassword.length <= 7) {
+      setFillingError('the password length must be at least 8 character');
+      return;
+    }
+      setIsSubmitting(true);
+      try {
+          const result = await createAccount(form.email, form.password, form.userName);
+          if(result){
+             router.replace('/home')
+          }
+        } catch (error) {
+        Alert.alert('Error',error.message);
+        
+      }finally{
+        setIsSubmitting(false);
+      }
   };
   return (
     <SafeAreaView style={{height:'100vh', backgroundColor:'#161622'}}>
@@ -44,10 +66,11 @@ const SignUp = () => {
             handleChangeText={(e) => setForm({...form, password:e})}
             otherStyle={{marginTop:'40px', gap:'20px'}}
           />
+          <Text style={{color:'#fa8b8b', textAlign:'center', marginTop:'20px'}}>{fillingError && fillingError}</Text>
           <CustomButton
            title='Join Now!'
            handlePress={submit}
-           contentContainerStyle={{marginTop:'70px'}}
+           contentContainerStyle={{marginTop:'40px'}}
            isLoading={isSubmitting}
           />
           <View style={{justifyContent:'center', paddingTop:'15px',gap:'5px', flexDirection:'row'}}>
