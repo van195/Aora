@@ -6,11 +6,13 @@ import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
 import { Link, router } from 'expo-router';
 import {signIn} from '../../lib/appwrite'
+import useGlobalContext from '../../context/GlobalProvider'
 const SingIn = () => {
   const [form , setForm] = useState({
     email:'',
     password:''
   })
+  const {isLoading,setUser,isLoggedIn} = useGlobalContext();
   const [isSubmitting , setIsSubmitting] = useState(false);
   const submit = async() => {
      const lengthPassword = form.password;
@@ -25,9 +27,11 @@ const SingIn = () => {
           setIsSubmitting(true);
           try {
               const result = await signIn(form.email, form.password);
+              setUser(result)
               if(result){
                  router.replace('/home')
               }
+              isLoggedIn(true);
             } catch (error) {
             Alert.alert('Error',error.message);
           }finally{
