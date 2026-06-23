@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import {getCurrentUser} from '../lib/appwrite'
-export const GlobalContext = useContext();
-const useGlobalContext = ()=> useContext(GlobalContext);
+export const GlobalContext = createContext();
+export const useGlobalContext = ()=> useContext(GlobalContext);
 const GlobalProvider = ({children})=>{
     const [isLoading,setIsLoading] = useState(true);
     const [user,setUser] = useState(null);

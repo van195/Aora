@@ -14,6 +14,8 @@ import uploadIcon from '../../assets/images/icon/upload.png';
 import logoImage from '../../assets/logo.png';
 import dogImage from '../../assets/StaringDog.png';
 import pathImage from '../../assets/path.png';
+import logoSmallImage from '../../assets/logo-small.png';
+import emptyImage from '../../assets/empty.png';
 
 
 export default {
@@ -32,5 +34,7 @@ export default {
    uploadIcon:uploadIcon,
    logoImage:logoImage,
    dogImage:dogImage,
-   pathImage:pathImage
+   pathImage:pathImage,
+   logoSmallImage:logoSmallImage,
+   emptyImage:emptyImage
 }

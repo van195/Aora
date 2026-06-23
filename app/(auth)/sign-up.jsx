@@ -6,7 +6,7 @@ import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
 import { Link, router } from 'expo-router'
 import {createAccount} from '../../lib/appwrite'
-import useGlobalContext from '../../context/GlobalProvider'
+import {useGlobalContext} from '../../context/GlobalProvider'
 const SignUp = () => {
   const [form , setForm] = useState({
     userName:'',

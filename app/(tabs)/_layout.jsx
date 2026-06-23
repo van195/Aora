@@ -27,8 +27,7 @@ const TabsLayouts = () => {
             backgroundColor:'#161622',
             borderTopWidth:1,
             borderTopColor:'#232533',
-            height:70,
-            borderRadius:'20px',
+            height:80,
             paddingTop:12
         }
       }}
