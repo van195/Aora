@@ -5,12 +5,13 @@ import image from '../constants/expoer_manager'
 import SearchInput from '@/components/SearchInput'
 import Treading from '@/components/Treading'
 import EmptyState from '@/components/EmptyState'
-import { getAllPosts } from '@/lib/appwrite'
+import { getAllPosts, getLatestPost } from '@/lib/appwrite'
 import VideoCard from '@/components/VideoCard'
 const Home = () => {
   const [refreshing,setRefreshing]=useState(true);
   const [isLoading,setIsLoading] = useState(false);
   const [data , setData]= useState([]);
+  const [latestData , setLatestData]= useState([]);
   useEffect(()=>{
     const fetchData = async() => {
        setIsLoading(true);
@@ -25,7 +26,20 @@ const Home = () => {
     }
     fetchData();
   },[]);
-  console.log(data);
+   useEffect(()=>{
+    const fetchData = async() => {
+       setIsLoading(true);
+      try {
+        const response = await getLatestPost();
+        setLatestData(response);
+      } catch (error) {
+        Alert.alert('error',error)
+      }finally{
+        setIsLoading(true);
+      }
+    }
+    fetchData();
+  },[]);
   
   const onRefreshing=async()=>{
    setRefreshing(true)
@@ -65,7 +79,7 @@ const Home = () => {
                  Latest Videos
                </Text>
                <Treading 
-                posts={[{id:1},{id:2},{id:3}] ?? []}
+                posts={latestData ?? []}
                />
             </View>
           </View>
