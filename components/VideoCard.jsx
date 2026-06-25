@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { getUserName } from '@/lib/appwrite'
 import icon from '../app/constants/expoer_manager'
+import {Video,ResizeMode} from 'expo-av'
 
 const VideoCard = ({video:{title,thumbnail,video,users}}) => {
   const [Name , setName] = useState('');
@@ -38,7 +39,19 @@ const VideoCard = ({video:{title,thumbnail,video,users}}) => {
           </View>
         </View>
          {play ? (
-          <Text>playing</Text>
+          <Video
+          source={{uri:video}}
+          resizeMode={ResizeMode.CONTAIN}
+          style={{width:'100%',height:'270px',marginTop:'60px',backgroundColor:'#000'}}
+          useNativeControls
+          shouldPlay
+          onPlaybackStatusUpdate={(status)=>{
+            if(status.didJustFinish){
+              setPlay(false);
+            }
+          }}
+          onError={(e) => console.log("VIDEO ERROR:", e)}
+        />
          ):(
           <TouchableOpacity
            activeOpacity={0.7}
@@ -49,11 +62,8 @@ const VideoCard = ({video:{title,thumbnail,video,users}}) => {
              resizeMode='contain'
              style={{width:'100%',height:'100%', marginTop:'30px',borderRadius:'10px'}}
             />
-            <Image
-             source={icon.playIcon}
-             resizeMode='contain'
-             style={{width:'35px',height:'35px', position:'absolute'}}
-            />
+           
+           
           </TouchableOpacity>
          )}
     </View>

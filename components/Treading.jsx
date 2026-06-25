@@ -4,27 +4,43 @@ import React, { useRef, useState } from 'react'
 import * as Animatable from 'react-native-animatable';
 import {zoomIn , zoomOut} from '@/app/constants/ObjectValues'
 import icon from '@/app/constants/expoer_manager'
+import {Video,ResizeMode} from 'expo-av'
 const TrendingItems = ({activeItem,item})=>{
-  const [playing , setPlaying ] = useState(false);  
- 
+  const [playing , setPlaying ] = useState(false); 
+  console.log(item.video);
+      
   return(
     <Animatable.View
-     style={{marginRight:'25px'}}
+     style={{marginRight:'25px', justifyContent:'center',alignItems:'center'}}
      animation={activeItem === item.$id ? zoomIn : zoomOut}
      duration={500}
     >
-     {
-      playing ? (
-        <Text style={{color:'#fff'}}>playing</Text>
+     { playing ? (
+        <Video
+          source={{uri:item.video}}
+          resizeMode={ResizeMode.COVER}
+          style={{width:'180px',height:'270px',marginTop:'60px',backgroundColor:'#000'}}
+          useNativeControls
+          shouldPlay
+          onPlaybackStatusUpdate={(status)=>{
+            if(status.didJustFinish){
+              setPlaying(false);
+            }
+          }}
+          onError={(e) => console.log("VIDEO ERROR:", e)}
+        />
       ):(
         <TouchableOpacity
-         style={{position:'relative', alignItem:'center',justifyContent:'center' }}
+         style={{position:'relative',height:'80%',shadowColor: '#00a1c9',
+          shadowOpacity: activeItem === item.$id ? 1 : 0,
+          shadowRadius: 15,borderRadius:'20px',
+          alignItem:'center',justifyContent:'center' }}
          activeOpacity={0.7}
          onPress={()=> setPlaying(true)}
         >
-          <ImageBackground 
+          <Image 
            source={{uri:item.thumbnail}}
-           style={{width:'170px',height:'270px',border:'1px solid #fff',borderRadius:'20px', marginVertical:'30px', overFlow:'hidden',}}
+           style={{width:'170px',height:'270px',border:'1px solid #ffffff73',borderRadius:'20px', marginVertical:'30px'}}
            contentFit='cover'
           />
            <Image
