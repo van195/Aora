@@ -71,9 +71,7 @@ const Home = () => {
                  />
               </View>
             </View>
-            <SearchInput 
-             placeHolder='search for a video topic...'
-            />
+            <SearchInput  />
             <View style={{width:'100%',flex:1, paddingTop:'50px', paddingBottom:'8px'}}>
                <Text style={{color:'#ffffffd3', fontFamily:"'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif", fontSize:'20px'}}>
                  Latest Videos
