@@ -7,11 +7,13 @@ import Treading from '@/components/Treading'
 import EmptyState from '@/components/EmptyState'
 import { getAllPosts, getLatestPost } from '@/lib/appwrite'
 import VideoCard from '@/components/VideoCard'
+import { useGlobalContext } from '@/context/GlobalProvider'
 const Home = () => {
   const [refreshing,setRefreshing]=useState(true);
   const [isLoading,setIsLoading] = useState(false);
   const [data , setData]= useState([]);
   const [latestData , setLatestData]= useState([]);
+  const {user}=useGlobalContext();
   useEffect(()=>{
     const fetchData = async() => {
        setIsLoading(true);
@@ -40,6 +42,7 @@ const Home = () => {
     }
     fetchData();
   },[]);
+  console.log(user);
   
   const onRefreshing=async()=>{
    setRefreshing(true)
@@ -60,7 +63,7 @@ const Home = () => {
                   welcome Back,
                 </Text>
                 <Text style={{color:'#ffffff',fontSize:'28px',fontWeight:900}}>
-                  van
+                  {user?.userName}
                 </Text>
               </View>
               <View style={{marginTop:'1.5px'}}>

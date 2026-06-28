@@ -12,7 +12,7 @@ const SingIn = () => {
     email:'',
     password:''
   })
-  const {isLoading,setUser,isLoggedIn} = useGlobalContext();
+  const {isLoading,setUser,isLoggedIn,user,setIsLoggedIn} = useGlobalContext();
   const [isSubmitting , setIsSubmitting] = useState(false);
   const submit = async() => {
      const lengthPassword = form.password;
@@ -26,12 +26,12 @@ const SingIn = () => {
         }
           setIsSubmitting(true);
           try {
-              const result = await signIn(form.email, form.password);
-              setUser(result)
-              if(result){
-                 router.replace('/home')
-              }
-              isLoggedIn(true);
+              const result = await signIn(form.email, form.password,user,isLoggedIn);
+              setUser(result);              
+              setIsLoggedIn(true);
+              router.replace('/home')
+              
+              
             } catch (error) {
             Alert.alert('Error',error.message);
           }finally{

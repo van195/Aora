@@ -1,4 +1,4 @@
-import { Link,Redirect,router } from "expo-router";
+import {Redirect,router } from "expo-router";
 import { Image, ScrollView, StatusBar, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import image from '../app/constants/expoer_manager.jsx'
@@ -6,8 +6,8 @@ import CustomButton from "@/components/CustomButton.jsx";
 import {useGlobalContext} from '../context/GlobalProvider.js'
 
 export default function Index() {
-  const {isLoading, isLoggedIn} = useGlobalContext();
-  if(!isLoading && isLoggedIn) <Redirect href='/home'/>
+  const {isLoading, isLoggedIn,user} = useGlobalContext();
+  if(!isLoading && isLoggedIn) return <Redirect href='/home'/>
   return (
     <SafeAreaView style={{backgroundColor:'#161622', height:'100vh'}}>
       <ScrollView contentContainerStyle={{height:'100%'}}>

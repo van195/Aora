@@ -25,7 +25,6 @@ const Search = () => {
     }
     fetchData();
   },[query]);
-  console.log(query,data);
   
   return (
     <SafeAreaView style={{backgroundColor:'#161622', height:'100vh'}}>

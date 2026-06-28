@@ -6,9 +6,7 @@ import {zoomIn , zoomOut} from '@/app/constants/ObjectValues'
 import icon from '@/app/constants/expoer_manager'
 import {Video,ResizeMode} from 'expo-av'
 const TrendingItems = ({activeItem,item})=>{
-  const [playing , setPlaying ] = useState(false); 
-  console.log(item.video);
-      
+  const [playing , setPlaying ] = useState(false);       
   return(
     <Animatable.View
      style={{marginRight:'25px', justifyContent:'center',alignItems:'center'}}
