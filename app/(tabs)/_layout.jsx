@@ -39,10 +39,10 @@ const TabsLayouts = () => {
                 headerShown:false,
                 tabBarIcon:({color , focused })=>(
                     <TabIcon 
-                    icon={icons.homeIcon}
-                    color={color}
-                    focused={focused}
-                    name='Home'
+                        icon={icons.homeIcon}
+                        color={color}
+                        focused={focused}
+                        name='Home'
                     />
                 )
             }}

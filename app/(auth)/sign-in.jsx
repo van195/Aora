@@ -29,9 +29,7 @@ const SingIn = () => {
               const result = await signIn(form.email, form.password,user,isLoggedIn);
               setUser(result);              
               setIsLoggedIn(true);
-              router.replace('/home')
-              
-              
+              router.replace('/home');         
             } catch (error) {
             Alert.alert('Error',error.message);
           }finally{
